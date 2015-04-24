@@ -124,7 +124,7 @@ Pappai =
             canvas.setAttribute("height", window.innerHeight)
         else
             canvas.setAttribute("width",  width)
-                  .setAttribute("height", height)
+            canvas.setAttribute("height", height)
     Node: -> new CNode()
     Circle: (radius) -> new CCircle(@, radius)
     Box: (width, height) -> new CBox(@, width, height)
