@@ -14,6 +14,9 @@ class CNode
     give: (k, v) ->
         @[k] = v
         @
+    flag: (opts) ->
+        @[k] = v for k, v of opts
+        @
     get: (k) -> @[k]
     mid: (x, y) -> [x, y]
     set: (x, y) ->
@@ -37,6 +40,7 @@ class CNode
         @PAINT.moveTo(xa, ya)
         @PAINT.lineTo(xb, yb)
         @PAINT.closePath()
+        @PAINT.lineWidth = @size ? 1
         @PAINT.strokeStyle = @scolor
         @PAINT.stroke()
     link: (node) ->
@@ -51,11 +55,15 @@ class CCircle extends CNode
         super
     mid: (x, y) -> [x, y]
     render: ->
-        @PAINT.closePath()
         @PAPER.style.backgroundColor = @bcolor
         @PAINT.fillStyle = @fcolor
+        @PAINT.strokeStyle = @scolor
+        @PAINT.lineWidth = @size ? 1
+        @PAINT.beginPath()
         @PAINT.arc(@x, @y, @radius, 0, @tau)
-        @PAINT.fill()
+        @PAINT.closePath()
+        @PAINT.fill() unless @noFill
+        @PAINT.stroke() if @doStroke
         @
         
 class CBox extends CNode
@@ -69,11 +77,15 @@ class CBox extends CNode
             y + (@height/2)
         ]
     render: ->
-        @PAINT.closePath()
         @PAPER.style.backgroundColor = @bcolor
         @PAINT.fillStyle = @fcolor
+        @PAINT.strokeStyle = @scolor
+        @PAINT.lineWidth = @size ? 1
+        @PAINT.beginPath()
         @PAINT.rect(@x, @y, @width, @height)
-        @PAINT.fill()
+        @PAINT.closePath()
+        @PAINT.fill() unless @noFill
+        @PAINT.stroke() if @doStroke
         @
         
 class CSquare extends CNode
@@ -86,12 +98,17 @@ class CSquare extends CNode
             y + (@side/2)
         ]
     render: ->
-        @PAINT.closePath()
         @PAPER.style.backgroundColor = @bcolor
         @PAINT.fillStyle = @fcolor
+        @PAINT.strokeStyle = @scolor
+        @PAINT.lineWidth = @size ? 1
+        @PAINT.beginPath()
         @PAINT.fillRect(@x, @y, @side, @side)
-        @PAINT.fill()
+        @PAINT.closePath()
+        @PAINT.fill() unless @noFill
+        @PAINT.stroke() if @doStroke
         @
+
 
 Pappai =
     Init: (width, height, theater) ->
