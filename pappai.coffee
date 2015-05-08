@@ -108,7 +108,10 @@ Pappai =
             canvas.setAttribute("height", window.innerHeight)
         else
             canvas.setAttribute("width",  width)
-                  .setAttribute("height", height)
+            canvas.setAttribute("height", height)
+            xm = (window.innerHeight - height) / 2
+            ym = (window.innerWidth - width) / 2
+            canvas.style.margin = "#{xm}px #{ym}px"
     Node: -> new CNode()
     Circle: (radius) -> new CCircle(@, radius)
     Box: (width, height) -> new CBox(@, width, height)

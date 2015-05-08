@@ -106,10 +106,13 @@ Pappai =
                 "padding": 0
             })
             canvas.attr.set("width",  window.innerWidth)
-                  .attr.set("height", window.innerHeight)
+            canvas.attr.set("height", window.innerHeight)
         else
             canvas.attr.set("width",  width)
-                  .attr.set("height", height)
+            canvas.attr.set("height", height)
+            xm = (window.innerHeight - height) / 2
+            ym = (window.innerWidth - width) / 2
+            canvas.style.margin = "#{xm}px #{ym}px"
     Node: -> new CNode()
     Circle: (radius) -> new CCircle(@, radius)
     Box: (width, height) -> new CBox(@, width, height)
