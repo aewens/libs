@@ -124,12 +124,23 @@ Pappai =
             })
             canvas.attr.set("width",  window.innerWidth)
             canvas.attr.set("height", window.innerHeight)
+            canvas.css("display", "block")
         else
             canvas.attr.set("width",  width)
             canvas.attr.set("height", height)
             xm = (window.innerHeight - height) / 2
             ym = (window.innerWidth - width) / 2
-            canvas.style.margin = "#{xm}px #{ym}px"
+            canvas.css("margin", "#{xm}px #{ym}px")
+            canvas.css("display", "block")
+            
+        ((ctx) ->
+            ctx.width = ctx.canvas.width
+            ctx.height = ctx.canvas.height
+            ctx.clear = ->
+                @clearRect 0, 0, @width, @height
+            ctx
+        )((canvas.ret).getContext "2d")
+        
     Node: -> new CNode()
     Circle: (radius) -> new CCircle(@, radius)
     Box: (width, height) -> new CBox(@, width, height)

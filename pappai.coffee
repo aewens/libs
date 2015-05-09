@@ -120,14 +120,24 @@ Pappai =
             body = document.querySelector("body")
             body.style.margin = 0
             body.style.padding = 0
-            canvas.setAttribute("width",  window.innerWidth)
-            canvas.setAttribute("height", window.innerHeight)
+            canvas.width = window.innerWidth
+            canvas.height = window.innerHeight
+            canvas.style.display = "block"
         else
-            canvas.setAttribute("width",  width)
-            canvas.setAttribute("height", height)
+            canvas.width = width
+            canvas.height = height
             xm = (window.innerHeight - height) / 2
             ym = (window.innerWidth - width) / 2
             canvas.style.margin = "#{xm}px #{ym}px"
+            canvas.style.display = "block"
+            
+        ((ctx) ->
+            ctx.width = ctx.canvas.width
+            ctx.height = ctx.canvas.height
+            ctx.clear = ->
+                @clearRect 0, 0, @width, @height
+            ctx
+        )(canvas.getContext "2d")
     Node: -> new CNode()
     Circle: (radius) -> new CCircle(@, radius)
     Box: (width, height) -> new CBox(@, width, height)
